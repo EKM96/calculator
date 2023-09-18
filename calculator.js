@@ -46,3 +46,39 @@ function operator(operand1, operand2, operator) {
             break;
     }
 }
+
+let digitsButtons = document.querySelectorAll('.js-button-digit');
+let displayContainer = document.querySelector('.js-display');
+let numberOfDigitsDisplayed = 0;
+
+let getDisplay = function () {
+    return (displayContainer.textContent);
+}
+
+function displayDigits(event) {
+    if(numberOfDigitsDisplayed < 12) {
+        digitDisplayed = event.target.textContent;
+        displayContainer.textContent += digitDisplayed;
+        numberOfDigitsDisplayed++;
+    } else {
+        return;
+    }
+}
+
+digitsButtons.forEach((digitButton) => {
+    digitButton.addEventListener('click', displayDigits);
+    digitButton.addEventListener('click', getDisplay);
+});
+
+
+
+
+
+
+
+
+    
+    
+
+
+
