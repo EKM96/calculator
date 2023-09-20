@@ -1,19 +1,19 @@
-let add = function (addend1, addend2) {
+const add = function (addend1, addend2) {
     let sum = addend1 + addend2;
     return sum;
 };
 
-let substract = function (minuend, subtrahend) {
+const substract = function (minuend, subtrahend) {
     let difference = minuend - subtrahend;
     return difference;
 };
 
-let multiply = function(factor1, factor2) {
+const multiply = function(factor1, factor2) {
     let product = factor1 * factor2;
     return product;
 }
 
-let divide = function(dividend, divisor) {
+const divide = function(dividend, divisor) {
     let quotient = dividend / divisor;
     return quotient;
 }
@@ -47,32 +47,54 @@ function operator(operand1, operand2, operator) {
     }
 }
 
+
+
 let digitsButtons = document.querySelectorAll('.js-button-digit');
 let displayContainer = document.querySelector('.js-display');
-let numberOfDigitsDisplayed = 0;
+let digitsCounter = 0;
 
-let getDisplay = function () {
-    return (displayContainer.textContent);
-}
+digitsButtons.forEach((digitButton) => {
+    digitButton.addEventListener('click', displayDigits);
+   
+});
 
 function displayDigits(event) {
-    if(numberOfDigitsDisplayed < 12) {
+    if(digitsCounter < 12) {
         digitDisplayed = event.target.textContent;
         displayContainer.textContent += digitDisplayed;
-        numberOfDigitsDisplayed++;
+        digitsCounter++;
     } else {
         return;
     }
 }
 
-digitsButtons.forEach((digitButton) => {
-    digitButton.addEventListener('click', displayDigits);
-    digitButton.addEventListener('click', getDisplay);
+
+
+const operatorsButtons = document.querySelectorAll('.js-operator-button');
+let operatorCounter = 0;
+
+operatorsButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener('click', () => {
+        displayOperator(operatorButton);
+    });
 });
 
+function displayOperator(operatorButton) {
+    let operator = operatorButton.textContent;
+    displayContainer.textContent += operator;
+    
+    operatorCounter++; 
+    digitsCounter = 0;
+    let clickedMoreThanOnce = operatorCounter > 1;
 
+    if (clickedMoreThanOnce) {
+        let displayed = displayContainer.textContent;
+        let displayLength = displayContainer.textContent.length;
 
-
+        displayContainer.textContent = displayed.substring(0, displayLength - 2);
+        displayContainer.textContent += operator;
+    }
+}
 
 
 
