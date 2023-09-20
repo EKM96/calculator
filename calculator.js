@@ -97,10 +97,21 @@ function displayOperator(operatorButton) {
 }
 
 
+const equalButton = document.querySelector('.js-equal-button');
 
+equalButton.addEventListener('click', removeDisplay);
 
-    
-    
+function removeDisplay () {
+    const regex = /^\d{1,12}[\+\-x\/]\d{1,12}$/;
+    validate(displayContainer.textContent, regex);
+}
+ 
+function validate (displayContent, regex) {
+    if (regex.test(displayContent)) {
+        displayContainer.textContent = '';
+    };
+}
+
 
 
 
