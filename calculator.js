@@ -7,7 +7,7 @@ let digitsCounter = 0;
 let symbolCounter = 0;
 
 const digitsButtons = document.querySelectorAll('.js-button-digit');
-const displayContainer = document.querySelector('.js-display');
+const displayContainer = document.querySelector('.js-primary-display');
 const equalButton = document.querySelector('.js-equal-button');
 const operatorsButtons = document.querySelectorAll('.js-operator-button');
 const regex = /^\d{1,12}[\+\-x\/]\d{1,12}$/;
@@ -53,6 +53,7 @@ function displayOperator(operatorButton) {
     
     symbolCounter++; 
     digitsCounter = 0;
+    dotCounter = 0;
     let isClickedMoreThanOnce = symbolCounter > 1;
 
     if (isClickedMoreThanOnce) {
