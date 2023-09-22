@@ -1,12 +1,6 @@
 let operand1;
 let operand2;
 let operator;
-/*const operators = {
-    'add': add(operand1, operand2),
-    'substract': substract(operand1, operand2),
-    'multiply': multiply(operand1, operand2),
-    'divide': multiply(operand1, operand2),
-};*/
 
 let digitsButtons = document.querySelectorAll('.js-button-digit');
 let displayContainer = document.querySelector('.js-display');
@@ -28,33 +22,40 @@ function displayDigits(event) {
 }
 
 
-
 const operatorsButtons = document.querySelectorAll('.js-operator-button');
-let operatorCounter = 0;
+let symbolCounter = 0;
+
 
 operatorsButtons.forEach((operatorButton) => {
-    operatorButton.addEventListener('click', (event) => {
-        operator = event.target.name;
-        displayOperator(operatorButton);
-    });
+    operatorButton.addEventListener('click', getOperator);
+    operatorButton.addEventListener('click', () => 
+        displayOperator(operatorButton));
+    
 });
+    
+
+function getOperator(event) {
+    return operator = event.target.name;
+}
 
 function displayOperator(operatorButton) {
-    let operator = operatorButton.textContent;
-    displayContainer.textContent += operator;
+    let symbol = operatorButton.textContent;
+    displayContainer.textContent += symbol;
     
-    operatorCounter++; 
+    symbolCounter++; 
     digitsCounter = 0;
-    let clickedMoreThanOnce = operatorCounter > 1;
+    let clickedMoreThanOnce = symbolCounter > 1;
 
     if (clickedMoreThanOnce) {
         let displayed = displayContainer.textContent;
         let displayLength = displayContainer.textContent.length;
 
         displayContainer.textContent = displayed.substring(0, displayLength - 2);
-        displayContainer.textContent += operator;
+        displayContainer.textContent += symbol;
     }
 }
+
+
 
 
 const equalButton = document.querySelector('.js-equal-button');
@@ -87,6 +88,7 @@ function getOperands(displayContent, regex) {
 function displayResult() {
         let result = operate(operator);
         displayContainer.textContent = result;
+        symbolCounter = 0;
 }
 
 const add = function (addend1, addend2) {
