@@ -1,6 +1,10 @@
+// VARIABLES
 let operand1;
 let operand2;
 let operator;
+let expression;
+let digitsCounter = 0;
+let symbolCounter = 0;
 
 const digitsButtons = document.querySelectorAll('.js-button-digit');
 const displayContainer = document.querySelector('.js-display');
@@ -9,12 +13,30 @@ const operatorsButtons = document.querySelectorAll('.js-operator-button');
 const regex = /^\d{1,12}[\+\-x\/]\d{1,12}$/;
 
 
+// EVENTS
 digitsButtons.forEach((digitButton) => {
     digitButton.addEventListener('click', displayDigits);
-   
 });
 
-let digitsCounter = 0;
+operatorsButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener('click', () => {
+        if(regex.test(displayContainer.textContent)) {     
+            getResult();
+            displayOperator(operatorButton); 
+        } else {
+            displayOperator(operatorButton);
+        }
+    });
+});
+
+equalButton.addEventListener('click', () => {
+    if(regex.test(displayContainer.textContent)) {
+        getResult();
+    }
+});
+
+
+// FUNCTIONS DECLARATIONS
 function displayDigits(event) {
     if(digitsCounter < 12) {
         digitDisplayed = event.target.textContent;
@@ -25,19 +47,6 @@ function displayDigits(event) {
     }
 }
 
-
-operatorsButtons.forEach((operatorButton) => {
-    operatorButton.addEventListener('click', getOperator);
-    operatorButton.addEventListener('click', () => 
-        displayOperator(operatorButton));
-    
-});
-    
-function getOperator(event) {
-    return operator = event.target.name;
-}
-
-let symbolCounter = 0;
 function displayOperator(operatorButton) {
     let symbol = operatorButton.textContent;
     displayContainer.textContent += symbol;
@@ -55,21 +64,22 @@ function displayOperator(operatorButton) {
     }
 }
 
-
-equalButton.addEventListener('click', () => {
-    if(regex.test(displayContainer.textContent)) {
-        getResult();
-    }
-});
-   
 function getResult () { 
+    getOperator();
     getOperands();
     removeDisplay();
     displayResult();
 }
 
+function getOperator() { 
+    expression = displayContainer.textContent;
+    const operators = /[\+\-x\/]/;
+    let operatorIndex = expression.search(operators);
+    operator = expression.substring(operatorIndex, operatorIndex + 1);
+}
+ 
 function getOperands() {
-    let expression = displayContainer.textContent.slice();
+    expression = displayContainer.textContent;
     let operands = expression.split(/[\+\-x\/]/);
     operand1 = +operands[0];
     operand2 = +operands[1];
@@ -87,16 +97,16 @@ function displayResult() {
 
 function calculate(operator, operand1, operand2) {
     switch (operator) {
-        case 'add':
+        case '+':
             return (operand1 + operand2);
         
-        case 'substract': 
+        case '-': 
             return (operand1 - operand2);
 
-        case 'multiply': 
+        case 'x': 
             return (operand1 * operand2);
 
-        case 'divide':
+        case '/':
             return (operand1 / operand2);
     }
 }
