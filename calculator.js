@@ -6,6 +6,7 @@ const digitsButtons = document.querySelectorAll('.js-button-digit');
 const displayContainer = document.querySelector('.js-display');
 const equalButton = document.querySelector('.js-equal-button');
 const operatorsButtons = document.querySelectorAll('.js-operator-button');
+const regex = /^\d{1,12}[\+\-x\/]\d{1,12}$/;
 
 
 digitsButtons.forEach((digitButton) => {
@@ -55,38 +56,36 @@ function displayOperator(operatorButton) {
 }
 
 
-equalButton.addEventListener('click', validate);
-
-function validate () {
-    const regex = /^\d{1,12}[\+\-x\/]\d{1,12}$/;
-    getOperands(displayContainer.textContent, regex);
-    removeDisplay(displayContainer.textContent, regex);
-    
-}
- 
-function removeDisplay (displayContent, regex) {
-    if (regex.test(displayContent)) {
-        displayContainer.textContent = '';
-        displayResult();
-    };
+equalButton.addEventListener('click', () => {
+    if(regex.test(displayContainer.textContent)) {
+        getResult();
+    }
+});
+   
+function getResult () { 
+    getOperands();
+    removeDisplay();
+    displayResult();
 }
 
-function getOperands(displayContent, regex) {
-    if (regex.test(displayContent)) {
-        let expression = displayContent.slice();
-        let operands = expression.split(/[\+\-x\/]/);
-        operand1 = +operands[0];
-        operand2 = +operands[1];
-    };
-}
+function getOperands() {
+    let expression = displayContainer.textContent.slice();
+    let operands = expression.split(/[\+\-x\/]/);
+    operand1 = +operands[0];
+    operand2 = +operands[1];
+};
+
+function removeDisplay() {
+    displayContainer.textContent = '';
+};
 
 function displayResult() {
-        let result = operate(operator, operand1, operand2);
+        let result = calculate(operator, operand1, operand2);
         displayContainer.textContent = result;
         symbolCounter = 0;
 }
 
-function operate(operator, operand1, operand2) {
+function calculate(operator, operand1, operand2) {
     switch (operator) {
         case 'add':
             return (operand1 + operand2);
