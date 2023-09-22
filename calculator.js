@@ -2,15 +2,18 @@ let operand1;
 let operand2;
 let operator;
 
-let digitsButtons = document.querySelectorAll('.js-button-digit');
-let displayContainer = document.querySelector('.js-display');
-let digitsCounter = 0;
+const digitsButtons = document.querySelectorAll('.js-button-digit');
+const displayContainer = document.querySelector('.js-display');
+const equalButton = document.querySelector('.js-equal-button');
+const operatorsButtons = document.querySelectorAll('.js-operator-button');
+
 
 digitsButtons.forEach((digitButton) => {
     digitButton.addEventListener('click', displayDigits);
    
 });
 
+let digitsCounter = 0;
 function displayDigits(event) {
     if(digitsCounter < 12) {
         digitDisplayed = event.target.textContent;
@@ -22,10 +25,6 @@ function displayDigits(event) {
 }
 
 
-const operatorsButtons = document.querySelectorAll('.js-operator-button');
-let symbolCounter = 0;
-
-
 operatorsButtons.forEach((operatorButton) => {
     operatorButton.addEventListener('click', getOperator);
     operatorButton.addEventListener('click', () => 
@@ -33,20 +32,20 @@ operatorsButtons.forEach((operatorButton) => {
     
 });
     
-
 function getOperator(event) {
     return operator = event.target.name;
 }
 
+let symbolCounter = 0;
 function displayOperator(operatorButton) {
     let symbol = operatorButton.textContent;
     displayContainer.textContent += symbol;
     
     symbolCounter++; 
     digitsCounter = 0;
-    let clickedMoreThanOnce = symbolCounter > 1;
+    let isClickedMoreThanOnce = symbolCounter > 1;
 
-    if (clickedMoreThanOnce) {
+    if (isClickedMoreThanOnce) {
         let displayed = displayContainer.textContent;
         let displayLength = displayContainer.textContent.length;
 
@@ -55,10 +54,6 @@ function displayOperator(operatorButton) {
     }
 }
 
-
-
-
-const equalButton = document.querySelector('.js-equal-button');
 
 equalButton.addEventListener('click', validate);
 
@@ -86,39 +81,23 @@ function getOperands(displayContent, regex) {
 }
 
 function displayResult() {
-        let result = operate(operator);
+        let result = operate(operator, operand1, operand2);
         displayContainer.textContent = result;
         symbolCounter = 0;
 }
 
-const add = function (addend1, addend2) {
-    return addend1 + addend2;
-};
-
-const substract = function (minuend, subtrahend) {
-    return minuend - subtrahend;
-};
-
-const multiply = function(factor1, factor2) {
-    return factor1 * factor2;
-}
-
-const divide = function(dividend, divisor) {
-    return dividend / divisor;
-}
-
-function operate(operator) {
+function operate(operator, operand1, operand2) {
     switch (operator) {
         case 'add':
-            return add(operand1, operand2);
+            return (operand1 + operand2);
         
         case 'substract': 
-            return substract(operand1, operand2);
+            return (operand1 - operand2);
 
         case 'multiply': 
-            return multiply(operand1, operand2);
+            return (operand1 * operand2);
 
         case 'divide':
-            return divide(operand1, operand2);
+            return (operand1 / operand2);
     }
 }
