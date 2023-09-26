@@ -3,6 +3,7 @@ let operand1;
 let operand2;
 let operator;
 let expression;
+let equalButtonIsClicked = false;
 let digitsCounter = 0;
 let symbolCounter = 0;
 
@@ -32,8 +33,9 @@ operatorsButtons.forEach((operatorButton) => {
 
 equalButton.addEventListener('click', () => {
     if(regex.test(displayContainer.textContent)) {
-        getResult();
+        getResult();   
     }
+    equalButtonIsClicked = true;
 });
 
 clearButton.addEventListener('click',  () => {
@@ -42,14 +44,25 @@ clearButton.addEventListener('click',  () => {
     symbolCounter = 0;
 });
 
+
 // FUNCTIONS DECLARATIONS
 function displayDigits(event) {
-    if(digitsCounter < 12) {
+    if (equalButtonIsClicked) {
+        removeDisplay();
+        digitsCounter = 0;
+        symbolCounter = 0;
+        equalButtonIsClicked = false;
+        display();
+    } else if(digitsCounter < 12) {
+        display();
+    } else {
+        return;
+    }
+
+    function display() {
         digitDisplayed = event.target.textContent;
         displayContainer.textContent += digitDisplayed;
         digitsCounter++;
-    } else {
-        return;
     }
 }
 
@@ -59,6 +72,7 @@ function displayOperator(operatorButton) {
     
     symbolCounter++; 
     digitsCounter = 0;
+    equalButtonIsClicked = false;
     let isClickedMoreThanOnce = symbolCounter > 1;
 
     if (isClickedMoreThanOnce) {
