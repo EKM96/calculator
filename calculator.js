@@ -6,6 +6,7 @@ let expression;
 let digitsCounter = 0;
 let symbolCounter = 0;
 
+const clearButton = document.querySelector('.js-clear-button');
 const digitsButtons = document.querySelectorAll('.js-button-digit');
 const displayContainer = document.querySelector('.js-display');
 const equalButton = document.querySelector('.js-equal-button');
@@ -35,6 +36,11 @@ equalButton.addEventListener('click', () => {
     }
 });
 
+clearButton.addEventListener('click',  () => {
+    removeDisplay();
+    digitsCounter = 0;
+    symbolCounter = 0;
+});
 
 // FUNCTIONS DECLARATIONS
 function displayDigits(event) {
