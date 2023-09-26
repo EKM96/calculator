@@ -42,6 +42,7 @@ clearButton.addEventListener('click',  () => {
     removeDisplay();
     digitsCounter = 0;
     symbolCounter = 0;
+    equalButtonIsClicked = false;
 });
 
 
@@ -111,7 +112,7 @@ function removeDisplay() {
 
 function displayResult() {
         let result = calculate(operator, operand1, operand2);
-        displayContainer.textContent = result;
+        displayContainer.textContent = roundResult(result);
         symbolCounter = 0;
 }
 
@@ -129,4 +130,18 @@ function calculate(operator, operand1, operand2) {
         case '/':
             return (operand1 / operand2);
     }
+}
+
+function roundResult(result) {
+    const resultIsFloat = !Number.isInteger(result);
+      
+        if (resultIsFloat) {
+            let float = result.toString();
+            if (float.length > 12) {
+                float = float.split('.');
+                let positions = 12 - (float[0].length + 1);
+                result = result.toFixed(positions);  
+            }
+        }
+    return result;
 }
