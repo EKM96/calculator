@@ -25,13 +25,7 @@ digitsButtons.forEach((digitButton) => {
 
 operatorsButtons.forEach((operatorButton) => {
     operatorButton.addEventListener('click', () => {
-        let toCheck = displayContainer.textContent.toString();
-        let includesSymbol = regex.test(toCheck);
-        let indexOfSymbol = toCheck.search(/[\+\-x\/]/);
-        let symbolNotAtStart = (indexOfSymbol !== 0);
-        let symbolNotAtEnd = (indexOfSymbol !== toCheck.length - 1)
-        
-        if(includesSymbol && symbolNotAtStart && symbolNotAtEnd) {
+        if(isAnExpression()) {
             getResult();
             displayOperator(operatorButton); 
         } else {
@@ -41,7 +35,7 @@ operatorsButtons.forEach((operatorButton) => {
 });
 
 equalButton.addEventListener('click', () => {
-    if(regex1.test(displayContainer.textContent)) {
+    if(regex1.test(displayContainer.textContent) || isAnExpression()) {
         getResult();   
     }
     equalButtonIsClicked = true;
@@ -164,4 +158,18 @@ function roundResult(result) {
     }
     
     return result;
+}
+
+function isAnExpression() {
+    let toCheck = displayContainer.textContent.toString();
+    let includesSymbol = regex.test(toCheck);
+    let indexOfSymbol = toCheck.search(/[\+\-x\/]/);
+    let symbolNotAtStart = (indexOfSymbol !== 0);
+    let symbolNotAtEnd = (indexOfSymbol !== toCheck.length - 1)
+    
+    if (includesSymbol && symbolNotAtStart && symbolNotAtEnd) {
+        return true
+    } else {
+        false
+    }
 }
