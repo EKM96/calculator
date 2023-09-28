@@ -124,9 +124,15 @@ function removeDisplay() {
 };
 
 function displayResult() {
+    let resultIsUndefined = operator === '/' && operand2 === 0;
+    
+    if (resultIsUndefined) {
+        displayContainer.textContent = 'Undefined'
+    } else {
         let result = calculate(operator, operand1, operand2);
         displayContainer.textContent = roundResult(result);
-        symbolCounter = 0;
+    }
+    symbolCounter = 0;
 }
 
 function calculate(operator, operand1, operand2) {
@@ -173,3 +179,4 @@ function isAnExpression() {
         false
     }
 }
+
