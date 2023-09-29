@@ -27,7 +27,11 @@ operatorsButtons.forEach((operatorButton) => {
     operatorButton.addEventListener('click', () => {
         if(isAnExpression()) {
             getResult();
-            displayOperator(operatorButton); 
+            if (displayContainer.textContent === 'Format Error') {
+                return;
+            } else {
+                displayOperator(operatorButton); 
+            }
         } else {
             displayOperator(operatorButton);
         }
@@ -115,6 +119,7 @@ function getOperator() {
 function getOperands() {
     expression = displayContainer.textContent;
     let operands = expression.split(/[\+\-x\/]/);
+
     operand1 = +operands[0];
     operand2 = +operands[1];
 };
@@ -124,10 +129,13 @@ function removeDisplay() {
 };
 
 function displayResult() {
-    let resultIsUndefined = operator === '/' && operand2 === 0;
+    let isUndefined = operator === '/' && operand2 === 0;
+    let isAFormatError = isNaN(operand1) || isNaN(operand2);
     
-    if (resultIsUndefined) {
-        displayContainer.textContent = 'Undefined'
+    if (isUndefined) {
+        displayContainer.textContent = 'Undefined';
+    } else if (isAFormatError) {
+        displayContainer.textContent = 'Format Error';
     } else {
         let result = calculate(operator, operand1, operand2);
         displayContainer.textContent = roundResult(result);
