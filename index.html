@@ -10,35 +10,37 @@
 </head>
 <body>
     <div class="calculator-container">
-        <div class="display-container">
-            <button class="button-blue  js-clear-button">C</button>
-            <div class="display  js-display"></div>
-        </div>
+        <div class="display  js-display"></div>
         <div class="operations-container">
             <div class="row-1">
+                <button class="button-green js-clear-button">C</button>
+                <button name='divide' class='button-light-purple  js-operator-button'>/</button>
+            </div>
+            <div class="row-2">
                 <button class='button-grey  js-button-digit'>7</button>
                 <button class='button-grey  js-button-digit'>8</button>
                 <button class='button-grey  js-button-digit'>9</button>
-                <button name='divide' class='button-blue  js-operator-button'>/</button>
+                <button name='multiply' class='button-light-purple  js-operator-button'>x</button>
             </div>
-            <div class="row-2">
+            <div class="row-3">
                 <button class='button-grey  js-button-digit'>4</button>
                 <button class='button-grey  js-button-digit'>5</button>
                 <button class='button-grey  js-button-digit'>6</button>
-                <button name='multiply' class='button-blue  js-operator-button'>x</button>
+                <button name='substract' class='button-light-purple  js-operator-button'>-</button>
             </div>
-            <div class="row-3">
+            <div class="row-4">
                 <button class='button-grey  js-button-digit'>1</button>
                 <button class='button-grey  js-button-digit'>2</button>
                 <button class='button-grey  js-button-digit'>3</button>
-                <button name='substract' class='button-blue  js-operator-button'>-</button>
+                <button name='add' class='button-light-purple  js-operator-button'>+</button>
             </div>
-            <div class="row-4">
+            <div class="row-5">
                 <button class='button-grey  js-button-digit'>0</button>
                 <button class='button-grey  js-decimal-point-button'>.</button>
-                <button class='button-red  js-equal-button'>=</button>
-                <button name='add' class='button-blue  js-operator-button'>+</button>
+                <button class="back-space js-back-space">BS</button>
+                <button class='button-blue  js-equal-button'>=</button>
             </div>
+            
         </div>
     </div>
     
